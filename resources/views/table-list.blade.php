@@ -17,7 +17,17 @@
                 <tr>
                     <td>{{ $movie->id }}</td>
                     <td>{{ $movie->name }}</td>
-                    <td>{{ $movie->play_counter }}</td>
+                    <td>
+
+                        <form action="{{ route('counter',['id'=>$movie->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-info" name="counter" value="plus">+</button>
+                            <input class="form-control" value="{{ $movie->play_counter }}"
+                                   style="width: 15%;display: table-row" readonly>
+                            <button type="submit" class="btn btn-danger" name="counter" value="minus">-</button>
+                        </form>
+
+                    </td>
                     <td>
                         <form action="{{ route('remove', ['id'=>$movie->id]) }}" method="post">
                             @csrf

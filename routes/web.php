@@ -33,3 +33,7 @@ Route::get('/random',[
     'as' => 'random',
 ]);
 
+Route::post('/count/{id}',[
+   'uses' => 'MovieController@counter',
+   'as' => 'counter',
+]);

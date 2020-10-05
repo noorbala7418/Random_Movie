@@ -38,9 +38,27 @@ class MovieController extends Controller
         $randMovieID = Movie::all()->random(1)->toArray();
         $movieID = $randMovieID[0]['id'];
         $randMovie = Movie::query()->findOrFail($movieID);
-        $randMovie->play_counter++;
+        $randMovie->play_counter ++;
         $randMovie->save();
 
         return back()->with('random', $randMovie);
+    }
+
+    public function counter(Request $request, $id)
+    {
+        $movie = Movie::findOrFail($id);
+        $order = $request->counter;
+        switch ($order){
+            case 'plus':
+                $movie->play_counter ++;
+                break;
+            case 'minus':
+                $movie->play_counter --;
+                break;
+            default:
+                return route('list');
+        }
+        $movie->save();
+        return back();
     }
 }
